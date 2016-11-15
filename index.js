@@ -15,14 +15,22 @@ var instanceName = process.argv[5];
     If the user arg is "list", show the lists of all the instances
 */
 if (process.argv[2] == "list") {
-    ec2.describeInstances(function(error, data) {
-        if (error) {
-            console.log(error); // an error occurred
-        } else {
-            console.log(data); // request succeeded
+    ec2.describeInstances(function(err, result) {
+        if (err)
+            console.log(err);
+        var inst_id = '-';
+        for (var i = 0; i < result.Reservations.length; i++) {
+            var res = result.Reservations[i];
+            var instances = res.Instances;
+            for (var j = 0; j < instances.length; j++) {
+                var instanceID = instances[j].InstanceId;
+                var state = instances[j].State.Code;
+                var public_ip = instances[j].PublicIpAddress;
+                var imageID = instances[j].ImageId;
+                console.log('instance ' + instanceID + " state " + state + " public ip " + public_ip + 'image id ' + imageID);
+            }
         }
     });
-    console.log("liste");
 }
 
 
