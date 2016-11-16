@@ -19,7 +19,9 @@ if (process.argv[2] == "list") {
         if (err)
             console.log(err);
         var inst_id = '-';
-        for (var i = 0; i < result.Reservations.length; i++) {
+        for ( var i = 0; i < result.Reservations.length; i++) {
+            var n = 0 ;
+            n ++;
             var res = result.Reservations[i];
             var instances = res.Instances;
             for (var j = 0; j < instances.length; j++) {
@@ -27,7 +29,7 @@ if (process.argv[2] == "list") {
                 var state = instances[j].State.Code;
                 var public_ip = instances[j].PublicIpAddress;
                 var imageID = instances[j].ImageId;
-                console.log('instance ' + instanceID + " state " + state + " public ip " + public_ip + 'image id ' + imageID);
+                console.log("==Instance N° " + n + "==" +'\ninstance: ' + instanceID + "\nstate: " + state + "\npublic ip: " + public_ip + '\nimage id: ' + imageID + "\n--------");
             }
         }
     });
